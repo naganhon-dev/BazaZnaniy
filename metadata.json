@@ -1,0 +1,6 @@
+{
+  "name": "База знаний ",
+  "description": "A local knowledge base application that answers your questions exclusively based on the documents you upload.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

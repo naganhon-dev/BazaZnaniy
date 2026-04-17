@@ -1,0 +1,67 @@
+{
+  "entities": {
+    "Document": {
+      "title": "Document",
+      "description": "Represents an uploaded and parsed text document.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "The UID of the user who owns this document."
+        },
+        "title": {
+          "type": "string",
+          "description": "The filename or title of the document."
+        },
+        "content": {
+          "type": "string",
+          "description": "The extracted text of the document."
+        },
+        "createdAt": {
+          "type": "number",
+          "description": "Unix timestamp indicating when the document was added."
+        }
+      },
+      "required": ["uid", "title", "content", "createdAt"]
+    },
+    "Message": {
+      "title": "Message",
+      "description": "Represents a message sent in the chat.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "The UID of the user who sent or received the message."
+        },
+        "role": {
+          "type": "string",
+          "description": "Either 'user' or 'assistant'.",
+          "enum": ["user", "assistant"]
+        },
+        "content": {
+          "type": "string",
+          "description": "The content of the message."
+        },
+        "createdAt": {
+          "type": "number",
+          "description": "Unix timestamp indicating when the message was sent."
+        }
+      },
+      "required": ["uid", "role", "content", "createdAt"]
+    }
+  },
+  "firestore": {
+    "documents": {
+      "schema": {
+        "$ref": "Document"
+      },
+      "description": "Collection storing documents uploaded by users."
+    },
+    "messages": {
+      "schema": {
+        "$ref": "Message"
+      },
+      "description": "Collection storing chat messages for users."
+    }
+  }
+}
