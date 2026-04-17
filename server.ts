@@ -1,13 +1,9 @@
 import express from "express";
-import { createServer as createViteServer } from "vite";
 import multer from "multer";
 import mammoth from "mammoth";
 import * as xlsx from "xlsx";
 import path from "path";
-import { createRequire } from "module";
-
-const require = createRequire(import.meta.url);
-const pdfParse = require("pdf-parse-fork");
+import pdfParse from "pdf-parse-fork";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -85,6 +81,7 @@ if (!process.env.VERCEL) {
   async function startServer() {
     // Vite middleware for development
     if (process.env.NODE_ENV !== "production") {
+      const { createServer: createViteServer } = await import("vite");
       const vite = await createViteServer({
         server: { middlewareMode: true },
         appType: "spa",
