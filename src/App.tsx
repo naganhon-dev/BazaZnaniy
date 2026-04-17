@@ -187,10 +187,21 @@ export default function App() {
         body: formData,
       });
 
-      const data = await response.json();
+      const responseText = await response.text();
       
       if (!response.ok) {
-        throw new Error(data.error || "Ошибка при обработке файла");
+        throw new Error(`Код ${response.status}: ${responseText.substring(0, 150) || "Пустой ответ"}`);
+      }
+
+      let data;
+      try {
+        data = JSON.parse(responseText);
+      } catch (err) {
+        throw new Error(`Сбой чтения ответа (код ${response.status}): ${responseText.substring(0, 100)}`);
+      }
+      
+      if (data.error) {
+        throw new Error(data.error);
       }
 
       await addDoc(collection(db, 'documents'), {
